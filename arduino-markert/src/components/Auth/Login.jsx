@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 import Logo from '../../assets/img/boardArduino.jpg';
 
@@ -72,12 +73,12 @@ const Login = () => {
                                     </a>
                                 </div>
                                 <div className="text-center">
-                                    <a
+                                    <Link
                                         className="inline-block text-sm text-blue-500 align-baseline hover:text-blue-800"
-                                        href="/"
+                                        to="/register"
                                     >
-                                        Ya estas registrado? Inicia sesión!
-                                    </a>
+                                        Aún no estas registrado? Registrate!
+                                    </Link>
                                 </div>
                             </form>
                         </div>
@@ -89,4 +90,4 @@ const Login = () => {
     )
 }
 
-export default Login
+export default Login;

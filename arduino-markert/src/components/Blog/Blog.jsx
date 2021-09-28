@@ -55,7 +55,7 @@ const Blog = () => {
 
             </section>
 
-            <section className="text-blueGray-700 bg-white mt-20">
+          {/*   <section className="text-blueGray-700 bg-white mt-20">
 
                 <div className="container flex flex-col items-center px-5 py-16 mx-auto  md:flex-row lg:px-28">
 
@@ -102,7 +102,7 @@ const Blog = () => {
 
                 </div>
 
-            </section>
+            </section> */}
 
         </>
 

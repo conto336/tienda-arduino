@@ -11,15 +11,14 @@ function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
 }
 
-const Navbar = (aling) => {
+const Navbar = (props) => {
 
-  const classOfDropdown = `origin-top-right absolute ${aling.position} mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none`;
-
+  const classOfDropdown = `origin-top-right absolute ${props.position} mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none`;
 
   return (
     <Popover>
       <div className="relative pt-6 px-2 sm:px-1 lg:px-1">
-        <nav className="relative flex items-center justify-between sm:h-10 lg:justify-start" aria-label="Global">
+        <nav className="relative flex items-center justify-between sm:h-10" aria-label="Global">
           <div className="flex items-center flex-grow flex-shrink-0 lg:flex-grow-0">
             <div className="flex items-center justify-between w-full md:w-auto">
               <a href="/">
@@ -38,17 +37,26 @@ const Navbar = (aling) => {
               </div>
             </div>
           </div>
-          <div className="hidden md:block md:ml-10 md:pr-4 md:space-x-8">
-            <a href="/" className="font-medium text-gray-500 hover:text-gray-900">
+          <div className="hidden md:block md:ml-10 md:pr-4 md:space-x-8 lg:justify-start">
+
+            <a
+              href="/"
+              className={props.active ? 'font-medium text-indigo-500 hover:text-indigo-900' : 'font-medium text-gray-500 hover:text-gray-900'}
+            >
               <i className="fas fa-home mx-1"></i>
               Inicio
             </a>
-            <a href="/" className="font-medium text-gray-500 hover:text-gray-900">
+
+            <Link
+              className={props.activeProducts ? 'font-medium text-indigo-500 hover:text-indigo-900' : 'font-medium text-gray-500 hover:text-gray-900'}
+              to="/products"
+            >
               <i className="fas fa-microchip mx-1"></i>
               Productos
-            </a>
+            </Link>
+
             <Link
-              className="font-medium text-gray-500 hover:text-gray-900"
+              className={props.activeBlog ? 'font-medium text-indigo-500 hover:text-indigo-900' : 'font-medium text-gray-500 hover:text-gray-900'}
               to="/blog"
             >
               <i className="fab fa-blogger-b mx-1"></i>
@@ -60,9 +68,9 @@ const Navbar = (aling) => {
 
               <Menu.Button className="font-medium text-indigo-600 hover:text-indigo-500">
                 <span className="sr-only">Open user menu</span>
-                <a href="/#" className="font-medium text-indigo-600 hover:text-indigo-500">
+                <Link to="#" className="font-medium text-gray-500 hover:text-gray-900">
                   Más
-                </a>
+                </Link>
                 <i className="fas fa-chevron-circle-down mx-1"></i>
               </Menu.Button>
 
@@ -78,24 +86,25 @@ const Navbar = (aling) => {
                 <Menu.Items className={classOfDropdown} >
                   <Menu.Item>
                     {({ active }) => (
-                      <a
-                        href="/"
-                        className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700')}
+                      <Link
+                        to="/login"
+                        className={
+                          classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700') }
                       >
                         <i className="fas fa-sign-in-alt mx-1"></i>
                         Inicia Sesión
-                      </a>
+                      </Link>
                     )}
                   </Menu.Item>
                   <Menu.Item>
                     {({ active }) => (
-                      <a
-                        href="/"
+                      <Link
+                        to="/register"
                         className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700')}
                       >
                         <i className="fas fa-user-plus mx-1"></i>
                         Registráte
-                      </a>
+                      </Link>
                     )}
                   </Menu.Item>
                 </Menu.Items>
@@ -141,10 +150,14 @@ const Navbar = (aling) => {
                 <i className="fas fa-home mx-1"></i>
                 Inicio
               </a>
-              <a href="/" className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50">
+              <Link
+                className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50"
+                to="/products"
+              >
                 <i className="fas fa-microchip mx-1"></i>
                 Productos
-              </a>
+              </Link>
+
               <Link
                 className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50"
                 to="/blog"
@@ -154,20 +167,43 @@ const Navbar = (aling) => {
               </Link>
 
             </div>
-            <a
-              href="/"
+            <div className="divide-y divide-fuchsia-300">
+              <div className="mb-4 md:mr-2 md:mb-0 mt-1">
+                <label className="text-center block mb-2 text-sm font-bold text-gray-700">
+                  Busqueda
+                </label>
+                <div className=" items-center w-full mb-4 text-center">
+                  <div className="flex mx-2">
+                    <span className="flex items-center leading-tight bg-grey-lighter rounded rounded-r-none border border-r-0 border-grey-light px-3 whitespace-no-wrap text-grey-dark text-sm">
+                      <i className="fas fa-search"></i>
+                    </span>
+                    <input
+                      className="w-full px-3 py-2 text-sm leading-tight text-gray-700 border rounded appearance-none rounded-l-none focus:outline-none focus:shadow-outline"
+                      id="firstName"
+                      type="text"
+                      placeholder="Busca tu componente ..."
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <Link
+              to="/login"
               className="block w-full px-5 py-3 text-center font-medium text-indigo-600 bg-gray-50 hover:bg-gray-100"
             >
               <i className="fas fa-sign-in-alt mx-1"></i>
               Inicia Sesión
-            </a>
-            <a
-              href="/"
+            </Link>
+
+            <Link
+              to="/"
               className="block w-full px-5 py-3 text-center font-medium text-indigo-600 bg-gray-50 hover:bg-gray-100"
             >
               <i className="fas fa-user-plus mx-1"></i>
               Registráte
-            </a>
+            </Link>
+
           </div>
         </Popover.Panel>
       </Transition>

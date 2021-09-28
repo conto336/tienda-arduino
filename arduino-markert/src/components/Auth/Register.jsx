@@ -1,4 +1,6 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
+
 import Logo from '../../assets/img/boardArduino.jpg';
 
 
@@ -140,12 +142,12 @@ const Register = () => {
                                 <hr className="mb-6 border-t" />
 
                                 <div className="text-center">
-                                    <a
+                                    <Link
                                         className="inline-block text-sm text-blue-500 align-baseline hover:text-blue-800"
-                                        href="./index.html"
+                                        to="/login"
                                     >
                                         Ya tienes una cuenta? Inicia sesión!
-                                    </a>
+                                    </Link>
                                 </div>
 
                             </form>
