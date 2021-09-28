@@ -1,6 +1,25 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
+import Asynfecht from '../../API/fetch';
 const Products = () => {
+
+    const [state, fetchData] = Asynfecht();
+
+    useEffect(
+        () => {
+            fetchData({
+                url: `http://127.0.0.1/api/home`,
+                method: 'GET',
+                headers: {
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                }
+            });
+
+        }, [fetchData]);
+
+
     return (
         <>
 
@@ -28,19 +47,23 @@ const Products = () => {
                             </div>
 
                             <div className="px-5 pt-4 text-center">
-                                <button className="px-1 mx-2 py-2 rounded-md text-sm font-medium border-0 focus:outline-none focus:ring transition text-white bg-blue-500 hover:bg-blue-600 active:bg-blue-700 focus:ring-blue-300" type="submit">
+                                <button
+                                    onClick={() => console.log(state)}
+                                    className="px-1 mx-2 py-2 rounded-md text-sm font-medium border-0 focus:outline-none focus:ring transition text-white bg-blue-500 hover:bg-blue-600 active:bg-blue-700 focus:ring-blue-300"
+                                    type="button"
+                                >
                                     <i className="fas fa-shopping-cart mx-1"></i>
                                     Agregar al carro
                                 </button>
                             </div>
-                            
+
                             <div className="px-5 py-4 text-center">
                                 <button className="px-4 mx-2 py-2 rounded-md text-sm font-medium border-0 focus:outline-none focus:ring transition text-white bg-blue-500 hover:bg-blue-600 active:bg-blue-700 focus:ring-blue-300" type="submit">
                                     <i className="fas fa-eye mx-1"></i>
                                     Ver
                                 </button>
                             </div>
-                            
+
                         </article>
 
 
@@ -65,14 +88,14 @@ const Products = () => {
                                     Agregar al carro
                                 </button>
                             </div>
-                            
+
                             <div className="px-5 py-4 text-center">
                                 <button className="px-4 mx-2 py-2 rounded-md text-sm font-medium border-0 focus:outline-none focus:ring transition text-white bg-blue-500 hover:bg-blue-600 active:bg-blue-700 focus:ring-blue-300" type="submit">
                                     <i className="fas fa-eye mx-1"></i>
                                     Ver
                                 </button>
                             </div>
-                            
+
                         </article>
 
                         <article className="bg-white group relative rounded-lg overflow-hidden shadow-lg hover:shadow-2xl transform duration-200">
@@ -96,14 +119,14 @@ const Products = () => {
                                     Agregar al carro
                                 </button>
                             </div>
-                            
+
                             <div className="px-5 py-4 text-center">
                                 <button className="px-4 mx-2 py-2 rounded-md text-sm font-medium border-0 focus:outline-none focus:ring transition text-white bg-blue-500 hover:bg-blue-600 active:bg-blue-700 focus:ring-blue-300" type="submit">
                                     <i className="fas fa-eye mx-1"></i>
                                     Ver
                                 </button>
                             </div>
-                            
+
                         </article>
 
                         <article className="bg-white group relative rounded-lg overflow-hidden shadow-lg hover:shadow-2xl transform duration-200">
@@ -127,14 +150,14 @@ const Products = () => {
                                     Agregar al carro
                                 </button>
                             </div>
-                            
+
                             <div className="px-5 py-4 text-center">
                                 <button className="px-4 mx-2 py-2 rounded-md text-sm font-medium border-0 focus:outline-none focus:ring transition text-white bg-blue-500 hover:bg-blue-600 active:bg-blue-700 focus:ring-blue-300" type="submit">
                                     <i className="fas fa-eye mx-1"></i>
                                     Ver
                                 </button>
                             </div>
-                            
+
                         </article>
 
                         <article className="bg-white group relative rounded-lg overflow-hidden shadow-lg hover:shadow-2xl transform duration-200">
@@ -158,14 +181,14 @@ const Products = () => {
                                     Agregar al carro
                                 </button>
                             </div>
-                            
+
                             <div className="px-5 py-4 text-center">
                                 <button className="px-4 mx-2 py-2 rounded-md text-sm font-medium border-0 focus:outline-none focus:ring transition text-white bg-blue-500 hover:bg-blue-600 active:bg-blue-700 focus:ring-blue-300" type="submit">
                                     <i className="fas fa-eye mx-1"></i>
                                     Ver
                                 </button>
                             </div>
-                            
+
                         </article>
 
                     </section>

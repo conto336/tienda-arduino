@@ -1,6 +1,7 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 
+
 import Navbar from "./Navbar";
 import About from "./About";
 import Contact from "./Contact";
@@ -18,7 +19,7 @@ const Body = () => {
     return (
         <>
             <div className="relative bg-white overflow-hidden">
-                
+
                 <div className="max-w-7xl mx-auto">
 
                     <div className="relative z-10 pb-8 bg-white sm:pb-16 md:pb-20 lg:max-w-2xl lg:w-full lg:pb-28 xl:pb-32">
@@ -32,7 +33,7 @@ const Body = () => {
                             <polygon points="50,0 100,0 50,100 0,100" />
                         </svg>
 
-                        <Navbar position="right-0" active={true}/>
+                        <Navbar position="right-0" active={true} />
 
                         <main id="main" className="mt-10 mx-auto max-w-7xl px-4 sm:mt-12 sm:px-6 md:mt-16 lg:mt-20 lg:px-8 xl:mt-28">
 
