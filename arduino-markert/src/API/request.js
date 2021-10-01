@@ -3,10 +3,9 @@ async function request({ url, method, body }) {
     const response = await fetch(url, {
         method,
         headers: {
-            headers: {
-                'Content-Type': 'application/json'
-            },
-        }
+            'Content-Type': 'application/json'
+        },
+        body,
     });
 
     if (!response.ok) {

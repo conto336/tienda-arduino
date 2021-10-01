@@ -1,5 +1,8 @@
 <?php
 
+use App\Http\Controllers\AuthUserController;
+use App\Http\Controllers\UserController;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -14,10 +17,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
+/* Route::apiResource('user', UserController::class)->only(['index'])->middleware('auth:sanctum'); */
 
-Route::get('home', function () {
-    return response()->json("hola");
-});
+Route::middleware('auth:sanctum')->get('/user', [UserController::class, 'index']);
+
+Route::post('login', [AuthUserController::class, 'login']);

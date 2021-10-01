@@ -13,7 +13,7 @@ function Asynfecht() {
     });
 
     const fetchData = useCallback(
-        async ({ url, method, headers }) => {
+        async ({ url, method, headers, body }) => {
             try {
 
                 setFetchRequest({
@@ -24,7 +24,7 @@ function Asynfecht() {
                     data: null,
                 });
 
-                const result = await request({ url, method, headers });
+                const result = await request({ url, method, headers, body });
                 setFetchRequest({
                     isLoading: false,
                     isSuccess: true,

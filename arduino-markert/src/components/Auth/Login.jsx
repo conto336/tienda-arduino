@@ -1,9 +1,63 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import Swal from 'sweetalert2';
 
 import Logo from '../../assets/img/boardArduino.jpg';
 
+
+
+
 const Login = () => {
+
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+
+    const autenticateLogin = async (e) => {
+        e.preventDefault();
+        let formData = new FormData();
+        formData.append('email', email);
+        formData.append('password', password);
+        formData.append('device', 'postman');
+        let data = {
+            email: email,
+            password: password,
+            device: 'react',
+        }
+
+        fetch('http://192.168.100.100/api/login', {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(data),
+        })
+            .then(res => res.json())
+            .then(data => {
+                console.log(data.errors);
+                if (data.message === 'Unauthorized') {
+                    Swal.fire({
+                        position: 'center',
+                        icon: 'error',
+                        title: 'Your data is incorrect',
+                        showConfirmButton: false,
+                        timer: 1500
+                    });
+                } else if (data.message === 'Success') {
+                    Swal.fire({
+                        position: 'center',
+                        icon: 'success',
+                        title: 'Your data is correct',
+                        showConfirmButton: false,
+                        timer: 1500
+                    });
+
+                } else if (data.errors) {
+                    alert('Los campos no deben estar vacios')
+                }
+            })
+    }
+
     return (
         <div>
 
@@ -32,9 +86,11 @@ const Login = () => {
                                             </span>
                                         </div>
                                         <input
-                                            type="text"
+                                            type="email"
                                             className="flex-shrink flex-grow flex-auto leading-tight w-px flex-1 border h-10 border-grey-light rounded rounded-l-none px-3 relative focus:outline-none focus:shadow-outline"
-                                            placeholder="Ingresa tu email ..." />
+                                            placeholder="Ingresa tu email ..."
+                                            onBlur={(e) => setEmail(e.target.value)}
+                                        />
                                     </div>
                                 </div>
 
@@ -49,7 +105,9 @@ const Login = () => {
                                         <input
                                             type="password"
                                             className="flex-shrink flex-grow flex-auto leading-tight w-px flex-1 border h-10 border-grey-light rounded rounded-l-none px-3 relative focus:outline-none focus:shadow-outline"
-                                            placeholder="Ingresa tu contraseña ..." />
+                                            placeholder="Ingresa tu contraseña ..."
+                                            onBlur={(e) => setPassword(e.target.value)}
+                                        />
                                     </div>
                                 </div>
 
@@ -57,6 +115,7 @@ const Login = () => {
                                     <button
                                         className="w-full px-4 py-2 font-bold text-white bg-blue-500 rounded-full hover:bg-blue-700 focus:outline-none focus:shadow-outline"
                                         type="button"
+                                        onClick={(e) => autenticateLogin(e)}
                                     >
                                         <i className="fas fa-sign-in-alt mx-2"></i>
                                         Ingresa

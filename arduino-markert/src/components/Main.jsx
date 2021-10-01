@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import {
     BrowserRouter as Router,
     Switch,
     Route,
 } from "react-router-dom";
+
 
 import Navbar from './Navbar';
 import Body from './Body';
@@ -14,6 +15,21 @@ import Products from './products/Products';
 import Footer from './footer';
 
 const Main = () => {
+
+    useEffect(
+        () => {
+
+            fetch('http://192.168.100.100/sanctum/csrf-cookie', {
+                method: 'GET',
+                credentials: 'include',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json',
+                },
+            })
+
+        }, [])
+
     return (
         <Router>
 
