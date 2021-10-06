@@ -1,10 +1,42 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import Swal from 'sweetalert2';
 
 import Logo from '../../assets/img/boardArduino.jpg';
 
 
 const Register = () => {
+
+    const [name, setName] = useState("");
+    const [lastname, setLastname] = useState("");
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    const [confirmPassword, setConfirmPassword] = useState("");
+
+    const registerUser = async (e) => {
+        e.preventDefault();
+
+        let data = {
+            name: name,
+            lastname: lastname,
+            email: email,
+            password: password,
+            confirmPassword: confirmPassword,
+            device: 'react',
+        }
+
+        fetch('http://192.168.100.100/api/register', {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(data),
+        })
+            .then((response) => response.json())
+            .then(data => console.log(data.status))
+    }
+
     return (
         <div>
             {/* 	<!-- Container --> */}
@@ -38,6 +70,7 @@ const Register = () => {
                                                     id="firstName"
                                                     type="text"
                                                     placeholder="Ingresa tu nombre ..."
+                                                    onBlur={(e) => setName(e.target.value)}
                                                 />
                                             </div>
                                         </div>
@@ -57,6 +90,7 @@ const Register = () => {
                                                     id="lastname"
                                                     type="text"
                                                     placeholder="Ingresa tus apellidos ..."
+                                                    onBlur={(e) => setLastname(e.target.value)}
                                                 />
                                             </div>
                                         </div>
@@ -80,7 +114,9 @@ const Register = () => {
                                             type="text"
                                             id="email"
                                             className="flex-shrink flex-grow flex-auto leading-tight w-px flex-1 border h-10 border-grey-light rounded rounded-l-none px-3 relative focus:outline-none focus:shadow-outline"
-                                            placeholder="Ingresa tu email ..." />
+                                            placeholder="Ingresa tu email ..."
+                                            onBlur={(e) => setEmail(e.target.value)}
+                                        />
                                     </div>
 
                                 </div>
@@ -99,8 +135,9 @@ const Register = () => {
                                                 <input
                                                     className="w-full px-3 py-2 text-sm leading-tight text-gray-700 border rounded appearance-none rounded-l-none focus:outline-none focus:shadow-outline"
                                                     id="password"
-                                                    type="text"
+                                                    type="password"
                                                     placeholder="Ingresa tu contraseña ..."
+                                                    onBlur={(e) => setPassword(e.target.value)}
                                                 />
                                             </div>
                                         </div>
@@ -120,8 +157,9 @@ const Register = () => {
                                                 <input
                                                     className="w-full px-3 py-2 text-sm leading-tight text-gray-700 border rounded appearance-none rounded-l-none focus:outline-none focus:shadow-outline"
                                                     id="confirmPassword"
-                                                    type="text"
+                                                    type="password"
                                                     placeholder="Confirma tu contraseña ..."
+                                                    onBlur={(e) => setConfirmPassword(e.target.value)}
                                                 />
                                             </div>
                                         </div>
@@ -133,6 +171,7 @@ const Register = () => {
                                     <button
                                         className="w-full px-4 py-2 font-bold text-white bg-blue-500 rounded-full hover:bg-blue-700 focus:outline-none focus:shadow-outline"
                                         type="button"
+                                        onClick={(e) => registerUser(e)}
                                     >
                                         <i className="fas fa-sign-in-alt mx-2"></i>
                                         Registrate tu cuenta
