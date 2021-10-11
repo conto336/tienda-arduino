@@ -83,30 +83,33 @@ const Navbar = (props) => {
                 leaveFrom="transform opacity-100 scale-100"
                 leaveTo="transform opacity-0 scale-95"
               >
+
                 <Menu.Items className={classOfDropdown} >
-                  <Menu.Item>
-                    {({ active }) => (
-                      <Link
-                        to="/login"
-                        className={
-                          classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700') }
-                      >
-                        <i className="fas fa-sign-in-alt mx-1"></i>
-                        Inicia Sesión
-                      </Link>
-                    )}
-                  </Menu.Item>
-                  <Menu.Item>
-                    {({ active }) => (
-                      <Link
-                        to="/register"
-                        className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700')}
-                      >
-                        <i className="fas fa-user-plus mx-1"></i>
-                        Registráte
-                      </Link>
-                    )}
-                  </Menu.Item>
+
+                      <Menu.Item>
+                        {({ active }) => (
+                          <Link
+                            to="/login"
+                            className={
+                              classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700')}
+                          >
+                            <i className="fas fa-sign-in-alt mx-1"></i>
+                            Inicia Sesión
+                          </Link>
+                        )}
+                      </Menu.Item>
+                      <Menu.Item>
+                        {({ active }) => (
+                          <Link
+                            to="/register"
+                            className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700')}
+                          >
+                            <i className="fas fa-user-plus mx-1"></i>
+                            Registráte
+                          </Link>
+                        )}
+                      </Menu.Item> 
+
                 </Menu.Items>
               </Transition>
             </Menu>

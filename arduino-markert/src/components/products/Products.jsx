@@ -1,24 +1,6 @@
-import React, { useEffect } from 'react';
 
-import Asynfecht from '../../API/fetch';
+
 const Products = () => {
-
-    const [state, fetchData] = Asynfecht();
-
-    useEffect(
-        () => {
-            fetchData({
-                url: `http://127.0.0.1/api/home`,
-                method: 'GET',
-                headers: {
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                }
-            });
-
-        }, [fetchData]);
-
 
     return (
         <>
@@ -48,7 +30,6 @@ const Products = () => {
 
                             <div className="px-5 pt-4 text-center">
                                 <button
-                                    onClick={() => console.log(state)}
                                     className="px-1 mx-2 py-2 rounded-md text-sm font-medium border-0 focus:outline-none focus:ring transition text-white bg-blue-500 hover:bg-blue-600 active:bg-blue-700 focus:ring-blue-300"
                                     type="button"
                                 >

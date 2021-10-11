@@ -1,10 +1,9 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import {
     BrowserRouter as Router,
     Switch,
     Route,
 } from "react-router-dom";
-
 
 import Navbar from './Navbar';
 import Body from './Body';
@@ -16,52 +15,80 @@ import Footer from './footer';
 
 const Main = () => {
 
-    useEffect(
-        () => {
+    if (localStorage.getItem('data') === null) {
 
-            fetch('http://192.168.100.100/sanctum/csrf-cookie', {
-                method: 'GET',
-                credentials: 'include',
-                headers: {
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json',
-                },
-            })
+        return (
+            <Router>
 
-        }, [])
+                <Switch>
+                    <Route exact path="/">
+                        <Body />
+                    </Route>
 
-    return (
-        <Router>
+                    <Route exact path="/blog">
+                        <Navbar position="right-0" activeBlog="true" />
+                        <Blog />
+                    </Route>
 
-            <Switch>
-                <Route exact path="/">
-                    <Body />
-                </Route>
+                    <Route exact path="/products">
+                        <Navbar position="right-0" activeProducts="true" />
+                        <Products />
+                    </Route>
 
-                <Route exact path="/blog">
-                    <Navbar position="right-0" activeBlog="true" />
-                    <Blog />
-                </Route>
+                    <Route exact path="/login">
+                        <Navbar position="right-0" />
+                        <Login  redirect="home"/>
+                    </Route>
 
-                <Route exact path="/products">
-                    <Navbar position="right-0" activeProducts="true" />
-                    <Products />
-                </Route>
+                    <Route exact path="/register">
+                        <Navbar position="right-0" />
+                        <Register />
+                    </Route>
 
-                <Route exact path="/login">
-                    <Navbar position="right-0" />
-                    <Login />
-                </Route>
+                </Switch>
+                <Footer />
+            </Router>
+        );
 
-                <Route exact path="/register">
-                    <Navbar position="right-0" />
-                    <Register />
-                </Route>
+    } else {
 
-            </Switch>
-            <Footer />
-        </Router>
-    )
+        return (
+            <Router>
+
+                <Switch>
+                    <Route exact path="/">
+                        <Body />
+                    </Route>
+
+                    <Route exact path="/blog">
+                        <Navbar position="right-0" activeBlog="true" />
+                        <Blog />
+                    </Route>
+
+                    <Route exact path="/products">
+                        <Navbar position="right-0" activeProducts="true" />
+                        <Products />
+                    </Route>
+
+                    <Route exact path="/login">
+                        <Navbar position="right-0" />
+                        <Login redirect="home"/>
+                    </Route>
+
+                    <Route exact path="/register">
+                        <Navbar position="right-0" />
+                        <Register redirect="home" />
+                    </Route>
+
+                </Switch>
+                <Footer />
+            </Router>
+        );
+    }
+
+
+
+
 }
 
 export default Main;

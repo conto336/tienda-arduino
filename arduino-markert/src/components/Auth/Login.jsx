@@ -1,26 +1,34 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import Swal from 'sweetalert2';
+import { connect } from 'react-redux';
+import store from '../../redux/store';
+
+import auth_user from '../../redux/actions/user_login';
 
 import Logo from '../../assets/img/boardArduino.jpg';
 
 
+const Login = (props) => {
 
-
-const Login = () => {
+    
 
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
 
-    const autenticateLogin = async (e) => {
+    const { auth_user, } = props;
+    const dataStorage = (actions) => {
+        localStorage.setItem('data', JSON.stringify(actions));
+    };
+
+
+
+    const AutenticateLogin = async (e) => {
         e.preventDefault();
-        let formData = new FormData();
-        formData.append('email', email);
-        formData.append('password', password);
-        formData.append('device', 'postman');
+
         let data = {
-            email: email,
-            password: password,
+            email,
+            password,
             device: 'react',
         }
 
@@ -34,33 +42,40 @@ const Login = () => {
         })
             .then(res => res.json())
             .then(data => {
-                console.log(data);
-                if (data.message === 'Unauthorized') {
-                    Swal.fire({
-                        position: 'center',
-                        icon: 'error',
-                        title: 'Your data is incorrect',
-                        showConfirmButton: false,
-                        timer: 1500
-                    });
-                } else if (data.message === 'Success') {
-                    Swal.fire({
-                        position: 'center',
-                        icon: 'success',
-                        title: 'Your data is correct',
-                        showConfirmButton: false,
-                        timer: 1500
-                    });
+                /*  console.log(data); */
+                switch (data.message) {
+                    case 'Unauthorized':
+                        Swal.fire({
+                            position: 'center',
+                            icon: 'error',
+                            title: 'Your data is incorrect',
+                            showConfirmButton: false,
+                            timer: 1500
+                        });
+                        break;
 
-                } else if (data.errors) {
-                    alert('Los campos no deben estar vacios')
+                    case 'Success':
+                        store.dispatch(auth_user(data.id, data.user, data.token))
+                        dataStorage(store.getState().token_login);
+                        Swal.fire({
+                            position: 'center',
+                            icon: 'success',
+                            title: 'Your data is correct',
+                            showConfirmButton: false,
+                            timer: 1500,
+                        });
+                        break;
+
+                    default:
+                        alert('Los campos no deben estar vacios');
+                        break;
                 }
+
             })
     }
 
     return (
         <div>
-
             {/* <!-- component --> */}
             {/* <!-- Container --> */}
             <div className="container mx-auto">
@@ -115,7 +130,7 @@ const Login = () => {
                                     <button
                                         className="w-full px-4 py-2 font-bold text-white bg-blue-500 rounded-full hover:bg-blue-700 focus:outline-none focus:shadow-outline"
                                         type="button"
-                                        onClick={(e) => autenticateLogin(e)}
+                                        onClick={(e) => AutenticateLogin(e)}
                                     >
                                         <i className="fas fa-sign-in-alt mx-2"></i>
                                         Ingresa
@@ -149,4 +164,14 @@ const Login = () => {
     )
 }
 
-export default Login;
+const mapStateToProps = (state) => {
+    return {
+        token_login: state.token_login,
+    }
+}
+
+const mapDispachtToProps = {
+    auth_user,
+};
+
+export default connect(mapStateToProps, mapDispachtToProps)(Login);

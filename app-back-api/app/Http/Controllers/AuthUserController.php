@@ -12,6 +12,8 @@ class AuthUserController extends Controller
 
     public function login(Request $request)
     {
+        $user_id = User::where('email', $request->email)->first();
+
         $this->validateLogin($request);
         if (!Auth::attempt($request->only('email', 'password'))) {
             return response()->json([
@@ -20,13 +22,16 @@ class AuthUserController extends Controller
         }
 
         return response()->json([
+            'id' =>  $user_id->id,
+            'user' =>  $user_id->email,
             'token' => $request->user()->createToken($request->device)->plainTextToken,
             'message' => 'Success'
-        ],);
+        ], 200);
     }
 
     public function validateLogin(Request $request)
     {
+       
         return $request->validate([
             'email' => 'required|email',
             'password' => 'required',

@@ -1,5 +1,6 @@
 
 export default function About() {
+ 
     return (
         <div className="py-12 bg-white">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -56,7 +57,7 @@ export default function About() {
                                     <tbody>
                                         <tr>
                                             <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 ">
-                                            10:00am-7:00pm
+                                                10:00am-7:00pm
                                             </td>
                                             <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 ">
                                                 10:00am-7:00pm
